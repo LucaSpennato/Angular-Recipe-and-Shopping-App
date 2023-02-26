@@ -1,10 +1,20 @@
 <div class="container">
     <div class="row">
-        <div class="col-xs-10 border-top">
+        <div class="col-10 border-top">
             <app-shopping-edit></app-shopping-edit>
         </div>
-        <p>
-            list
-        </p>
+        <ul class="list-group list-group-flush col-3">
+            <li class="list-group-item fs-4">
+                Ingredients:
+            </li>
+            <li class="list-group-item position-relative" *ngFor="let ingr of ingredients">
+                <span>
+                    {{ ingr.name }} 
+                </span>
+                <span class="badge rounded-pill text-bg-primary position-absolute end-0">
+                    {{ ingr.amount }}
+                </span>
+            </li>
+        </ul>
     </div>
 </div>
