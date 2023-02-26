@@ -2,6 +2,10 @@
     <div class="col-12">
         <button class="btn btn-success">New Recipe</button>
     </div>
+    <div class="col-6 my-2">
+        <label for="search">Search:</label>
+       <input type="text" class="form-control" id="search" [(ngModel)]="recipiesNeedle">
+    </div>
 </div>
 <div class="row">
     
@@ -15,7 +19,7 @@
             </div>
           </div>
         </a> -->
-        <div class="card my-2 w-100" *ngFor="let recipe of recipies">
+        <div class="card my-2 w-100" *ngFor="let recipe of getFilteredRecipies()">
             <div class="row g-0">
               <div class="col-md-4">
                  <!-- src="{{ recipe.imagePath }}" oppure: -->
