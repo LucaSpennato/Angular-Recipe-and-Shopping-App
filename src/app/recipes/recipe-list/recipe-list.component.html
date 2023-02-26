@@ -1,12 +1,12 @@
 <div class="row">
-    <div class="col-xs-12">
+    <div class="col-12">
         <button class="btn btn-success">New Recipe</button>
     </div>
 </div>
 <div class="row">
-    <div class="col-xs-12">
+    
         <!-- src="{{ recipe.imagePath }}" oppure: -->
-        <a href="">
+        <!-- <a href="">
         <div class="card text-bg-dark m-3" *ngFor="let recipe of recipies">
             <img [src]="recipe.imagePath" alt="{{ recipe.name }} img" class="card-img">
             <div class="card-img-overlay">
@@ -14,9 +14,23 @@
               <p class="card-text">{{ recipe.description }}</p>
             </div>
           </div>
-        </a>
+        </a> -->
+        <div class="card my-2 w-100" *ngFor="let recipe of recipies">
+            <div class="row g-0">
+              <div class="col-md-4">
+                 <!-- src="{{ recipe.imagePath }}" oppure: -->
+                <img [src]="recipe.imagePath" alt="{{ recipe.name }} img" class="img-fluid rounded-start">
+              </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                    <h3 class="card-title">{{ recipe.name }}</h3>
+                    <p class="card-text">{{ recipe.description }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
 
         <app-recipe-item></app-recipe-item>
-    </div>
+    
 </div>
 
