@@ -1,0 +1,10 @@
+.card{
+    transition: all 200ms linear;
+    .card-img-overlay{
+        background-color: rgba(#000000, .2);
+        text-transform: capitalize;
+    }
+    &:hover{
+        transform: scale(1.03);
+    }
+}
