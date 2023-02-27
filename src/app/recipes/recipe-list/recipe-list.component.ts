@@ -1,5 +1,5 @@
 import { Recipe } from './../recipe.model';
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-recipe-list',
@@ -9,6 +9,8 @@ import { Component } from '@angular/core';
 export class RecipeListComponent {
 
   recipiesNeedle: string = ''
+
+  @Output() emittedRecipe = new EventEmitter<Recipe>()
 
   recipies: Recipe[] = [
     new Recipe('pizzazza', 'test desc', 
@@ -23,6 +25,10 @@ export class RecipeListComponent {
     }
     return this.recipies.filter( recipe => recipe.name.toLowerCase().includes(this.recipiesNeedle.toLowerCase())
     )
+  }
+
+  onRecipeItemClicked(recipe: Recipe){
+    this.emittedRecipe.emit(recipe) 
   }
 
 }
