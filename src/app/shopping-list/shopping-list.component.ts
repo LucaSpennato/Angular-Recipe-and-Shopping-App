@@ -14,4 +14,20 @@ export class ShoppingListComponent {
     new Ingredient('Tomato', 5)
   ]
 
+  getEmittedIngredient(ingredient: Ingredient){
+
+    let isFound = undefined
+
+    this.ingredients.forEach((ingr,index)=>{
+      if(ingr.name.toLowerCase() === ingredient.name.toLowerCase()){
+        isFound = index
+      }
+    })
+    if(isFound !== undefined){
+     this.ingredients[isFound].amount = +this.ingredients[isFound].amount + +ingredient.amount
+    }else{
+      this.ingredients.push(ingredient)
+    }
+
+  }
 }
