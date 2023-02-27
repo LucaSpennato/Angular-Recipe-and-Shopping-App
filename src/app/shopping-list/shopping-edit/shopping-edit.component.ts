@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Ingredient } from './../../shared/ingredient.model';
+import { Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
+import { EmailValidator } from '@angular/forms';
 
 @Component({
   selector: 'app-shopping-edit',
@@ -6,5 +8,18 @@ import { Component } from '@angular/core';
   styleUrls: ['./shopping-edit.component.scss']
 })
 export class ShoppingEditComponent {
+
+  @ViewChild('nameInput', { static: true }) inputName: ElementRef
+  @ViewChild('amountInput', { static: true }) inputAmount: ElementRef
+
+  @Output() emitIngredient = new EventEmitter<Ingredient>()
+
+  ingredients: Ingredient[] = []
+
+  onAddingInShoppingList(e: SubmitEvent){
+    e.preventDefault()
+    
+    this.emitIngredient.emit(new Ingredient(this.inputName.nativeElement.value, this.inputAmount.nativeElement.value))
+  }
 
 }
