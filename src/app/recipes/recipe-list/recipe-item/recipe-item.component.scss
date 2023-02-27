@@ -1,0 +1,9 @@
+.card{
+    cursor: pointer;
+    transition: all 200ms linear;
+    text-transform: capitalize;
+    
+    &:hover{
+        transform: scale(1.015);
+    }
+}

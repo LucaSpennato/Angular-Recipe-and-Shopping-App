@@ -1,1 +1,14 @@
-<p>recipe-item works!</p>
+<div class="card my-2 w-100" (click)="isClicked()">
+    <div class="row g-0">
+      <div class="col-md-4">
+          <!-- src="{{ recipe.imagePath }}" oppure: -->
+        <img [src]="recipe.imagePath" alt="{{ recipe.name }} img" class="img-fluid rounded-start">
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+            <h3 class="card-title">{{ recipe.name }}</h3>
+            <p class="card-text">{{ recipe.description }}</p>
+        </div>
+      </div>
+    </div>
+</div>
