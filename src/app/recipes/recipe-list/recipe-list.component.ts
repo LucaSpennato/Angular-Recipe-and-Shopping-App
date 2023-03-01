@@ -1,23 +1,25 @@
+import { RecipeService } from './../recipe.service';
 import { Recipe } from './../recipe.model';
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-recipe-list',
   templateUrl: './recipe-list.component.html',
   styleUrls: ['./recipe-list.component.scss']
 })
-export class RecipeListComponent {
+export class RecipeListComponent implements OnInit {
 
   recipiesNeedle: string = ''
 
   @Output() emittedRecipe = new EventEmitter<Recipe>()
 
-  recipies: Recipe[] = [
-    new Recipe('pizzazza', 'test desc', 
-      'https://www.kingarthurbaking.com/sites/default/files/styles/featured_image/public/2022-05/Tomato-Pie_0256.jpg?itok=c63mh-z9'),
-      new Recipe('focaccia', 'test desc', 
-      'https://www.kingarthurbaking.com/sites/default/files/styles/featured_image/public/2022-05/Tomato-Pie_0256.jpg?itok=c63mh-z9')
-  ] 
+  recipies: Recipe[] = []
+
+  constructor(private recipeService: RecipeService){}
+
+  ngOnInit(): void {
+    this.recipies = this.recipeService.getRecipies()
+  }
 
   getFilteredRecipies(): Recipe[]{
     if(this.recipiesNeedle === ''){
