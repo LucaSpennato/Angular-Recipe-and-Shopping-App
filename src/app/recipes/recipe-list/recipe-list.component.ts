@@ -1,6 +1,6 @@
 import { RecipeService } from './../recipe.service';
 import { Recipe } from './../recipe.model';
-import { Component, Output, EventEmitter, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-recipe-list',
@@ -11,7 +11,7 @@ export class RecipeListComponent implements OnInit {
 
   recipiesNeedle: string = ''
 
-  @Output() emittedRecipe = new EventEmitter<Recipe>()
+  // @Output() emittedRecipe = new EventEmitter<Recipe>()
 
   recipies: Recipe[] = []
 
@@ -29,8 +29,6 @@ export class RecipeListComponent implements OnInit {
     )
   }
 
-  onRecipeItemClicked(recipe: Recipe){
-    this.emittedRecipe.emit(recipe) 
-  }
+
 
 }
