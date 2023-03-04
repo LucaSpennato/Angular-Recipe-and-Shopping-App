@@ -1,3 +1,4 @@
+import { ApproutingModule } from './app-routing.module';
 import { DropdownDirective } from './shared/dropdown.directive';
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
@@ -27,7 +28,8 @@ import { ShoppingListService } from './shopping-list/shopping-list.service';
   ],
   imports: [
     BrowserModule,
-    FormsModule
+    FormsModule,
+    ApproutingModule
   ],
   providers: [ShoppingListService],
   bootstrap: [AppComponent]
