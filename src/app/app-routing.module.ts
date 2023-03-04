@@ -4,11 +4,15 @@ import { ShoppingListComponent } from './shopping-list/shopping-list.component';
 import { RecipesComponent } from './recipes/recipes.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { RecipedEditComponent } from './recipes/reciped-edit/reciped-edit.component';
 
 const appRoutes: Routes = [
     { path: '', redirectTo: 'recipies', pathMatch: 'full' },
     { path: 'recipies', component: RecipesComponent, children:[
+        { path: '', component: RecipeStartComponent },
+        { path: 'new', component: RecipedEditComponent },
         { path: ':id', component: RecipeDetailComponent },
+        { path: ':id/edit', component: RecipedEditComponent },
     ] },
     { path: 'shopping-list', component: ShoppingListComponent },
     { path: '**', redirectTo: 'recipies', pathMatch: 'full' },
