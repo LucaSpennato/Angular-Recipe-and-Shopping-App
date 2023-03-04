@@ -9,5 +9,6 @@ import { Component, Input } from '@angular/core';
 export class RecipeItemComponent {
 
   @Input('recipe') recipe: Recipe
+  @Input('index') index: number
 
 }

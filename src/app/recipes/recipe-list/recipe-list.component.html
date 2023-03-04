@@ -9,7 +9,7 @@
 </div>
 <div class="row">
 
-  <app-recipe-item *ngFor="let recipeEl of getFilteredRecipies()" 
-  [recipe]="recipeEl"></app-recipe-item>
+  <app-recipe-item *ngFor="let recipeEl of getFilteredRecipies(); let i = index" 
+  [recipe]="recipeEl" [index]="i"></app-recipe-item>
 
 </div>
