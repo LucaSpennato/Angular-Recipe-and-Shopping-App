@@ -1,4 +1,4 @@
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { RecipeService } from './../recipe.service';
 import { Recipe } from './../recipe.model';
 import { Component, OnInit } from '@angular/core';
@@ -13,7 +13,7 @@ export class RecipeDetailComponent implements OnInit {
   recipe: Recipe 
   id: number
 
-  constructor(private recipeService: RecipeService, private route: ActivatedRoute ){}
+  constructor(private recipeService: RecipeService, private route: ActivatedRoute, private router: Router ){}
 
   ngOnInit(): void {
     this.route.params.subscribe(
@@ -26,6 +26,13 @@ export class RecipeDetailComponent implements OnInit {
 
   onAddToShoppingList(){
     this.recipeService.addIngredientsToShoppingList(this.recipe.ingredients)
+  }
+
+  onEditRecipe(){
+    // conil relative to salviamo tenriamo l'id, aggiungiamo solo l'edit al path esistente
+    this.router.navigate(['edit'], { relativeTo: this.route })
+    // altrimenti sarebbe così:
+    // this.router.navigate(['../', this.id,'edit'], { relativeTo: this.route })
   }
 
 }

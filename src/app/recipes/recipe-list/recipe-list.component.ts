@@ -1,3 +1,4 @@
+import { Router, ActivatedRoute } from '@angular/router';
 import { RecipeService } from './../recipe.service';
 import { Recipe } from './../recipe.model';
 import { Component, OnInit } from '@angular/core';
@@ -15,7 +16,7 @@ export class RecipeListComponent implements OnInit {
 
   recipies: Recipe[] = []
 
-  constructor(private recipeService: RecipeService){}
+  constructor(private recipeService: RecipeService, private router: Router, private route: ActivatedRoute){}
 
   ngOnInit(): void {
     this.recipies = this.recipeService.getRecipies()
@@ -29,6 +30,9 @@ export class RecipeListComponent implements OnInit {
     )
   }
 
-
+  onNewRecipe(){
+    // siamo già in recipies quindi niente path, aggiungiamo new e basta
+    this.router.navigate(['new'], { relativeTo: this.route })
+  }
 
 }
