@@ -4,15 +4,16 @@
             <app-recipe-list></app-recipe-list>
         </div>
         <div class="col-md-7">
-            <app-recipe-detail 
+            <router-outlet></router-outlet>
+            <!-- <app-recipe-detail 
                 *ngIf="recipiesSelected; else noRecipeSelected" 
                 [selectedRecipie]="recipiesSelected"
-                ></app-recipe-detail>
+            ></app-recipe-detail>
             <ng-template #noRecipeSelected>
                 <div class="col-12 text-center my-5">
                     <p>Please select a Recipe!</p>
                 </div>
-            </ng-template>
+            </ng-template> -->
         </div>
     </div>
 </div>
