@@ -6,4 +6,8 @@
     &:hover{
         transform: scale(1.015);
     }
+
+}
+.active{
+    background-color: rgba($color: #000000, $alpha: .1);
 }
