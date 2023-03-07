@@ -1,6 +1,7 @@
 import { ShoppingListService } from './../shopping-list.service';
 import { Ingredient } from './../../shared/ingredient.model';
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-shopping-edit',
@@ -9,19 +10,23 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 })
 export class ShoppingEditComponent {
 
-  @ViewChild('nameInput', { static: true }) inputName: ElementRef
-  @ViewChild('amountInput', { static: true }) inputAmount: ElementRef
-
-  // @Output() emitIngredient = new EventEmitter<Ingredient>()
-
-  // ingredients: Ingredient[] = []
+  amount = 1
 
   constructor(private slService: ShoppingListService){}
 
-  onAddingInShoppingList(e: SubmitEvent){
-    e.preventDefault()
-    this.slService.addIngredient(new Ingredient(this.inputName.nativeElement.value, this.inputAmount.nativeElement.value))
-    // this.emitIngredient.emit(new Ingredient(this.inputName.nativeElement.value, this.inputAmount.nativeElement.value))
+  onAddItem(submitForm: NgForm){
+
+    const { name, amount } = submitForm.value
+
+    this.slService.addIngredient(new Ingredient(name, amount))
   }
+
+
+
+  // onAddingInShoppingList(e: SubmitEvent){
+  //   e.preventDefault()
+  //   this.slService.addIngredient(new Ingredient(this.inputName.nativeElement.value, this.inputAmount.nativeElement.value))
+  //   // this.emitIngredient.emit(new Ingredient(this.inputName.nativeElement.value, this.inputAmount.nativeElement.value))
+  // }
 
 }
