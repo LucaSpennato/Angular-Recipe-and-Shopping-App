@@ -7,7 +7,7 @@
             <li class="list-group-item fs-4">
                 Ingredients:
             </li>
-            <li class="list-group-item position-relative" *ngFor="let ingr of ingredients">
+            <li class="list-group-item position-relative ingredients-list" *ngFor="let ingr of ingredients; let i = index" (click)="onEditItem(i)">
                 <span>
                     {{ ingr.name }} 
                 </span>
