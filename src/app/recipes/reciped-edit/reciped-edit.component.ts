@@ -90,11 +90,16 @@ export class RecipedEditComponent implements OnInit {
     }else{
       this.recService.addRecipe(this.recipeForm.value)
     }
-
+    this.onCancel()
   }
+
+  onCancel(){
+   this.router.navigate(['../'], { relativeTo: this.route })
+  } 
 
   onDelete(){
     this.recService.deleteRecipe(this.id)
-    this.router.navigate(['recipies'])
+    this.onCancel()
   }
+
 }

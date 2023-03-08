@@ -9,7 +9,7 @@
                         <button 
                             [disabled]="!recipeForm.valid"
                             class="btn btn-success" type="submit">Save</button>
-                        <button class="btn btn-primary mx-3" type="button">Clear</button>
+                        <button class="btn btn-primary mx-3" type="button" (click)="onCancel()">Cancel</button>
                         <button class="btn btn-danger" type="button" (click)="onDelete()">Cancel</button>
                     </div>
                 </div>
