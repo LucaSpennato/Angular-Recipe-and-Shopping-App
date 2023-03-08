@@ -16,6 +16,7 @@ import { ShoppingEditComponent } from './shopping-list/shopping-edit/shopping-ed
 import { ShoppingListService } from './shopping-list/shopping-list.service';
 import { RecipeStartComponent } from './recipes/recipe-start/recipe-start.component';
 import { RecipedEditComponent } from './recipes/reciped-edit/reciped-edit.component';
+import { FilterPipe } from './pipes/filter.pipe';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { RecipedEditComponent } from './recipes/reciped-edit/reciped-edit.compon
     ShoppingEditComponent,
     DropdownDirective,
     RecipeStartComponent,
-    RecipedEditComponent
+    RecipedEditComponent,
+    FilterPipe
   ],
   imports: [
     BrowserModule,
