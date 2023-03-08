@@ -8,8 +8,9 @@
                     <div class="col-12">
                         <button 
                             [disabled]="!recipeForm.valid"
-                            class="btn btn-success mx-3" type="submit">Save</button>
-                        <button class="btn btn-danger" type="button">Cancel</button>
+                            class="btn btn-success" type="submit">Save</button>
+                        <button class="btn btn-primary mx-3" type="button">Clear</button>
+                        <button class="btn btn-danger" type="button" (click)="onDelete()">Cancel</button>
                     </div>
                 </div>
 
