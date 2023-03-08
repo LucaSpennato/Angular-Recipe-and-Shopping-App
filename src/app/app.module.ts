@@ -1,3 +1,4 @@
+import { RecipeService } from './recipes/recipe.service';
 import { ApproutingModule } from './app-routing.module';
 import { DropdownDirective } from './shared/dropdown.directive';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -36,7 +37,7 @@ import { RecipedEditComponent } from './recipes/reciped-edit/reciped-edit.compon
     ApproutingModule,
     ReactiveFormsModule
   ],
-  providers: [ShoppingListService],
+  providers: [RecipeService, ShoppingListService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
