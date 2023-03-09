@@ -4,6 +4,7 @@ import { DropdownDirective } from './shared/dropdown.directive';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -31,15 +32,16 @@ import { FilterPipe } from './pipes/filter.pipe';
     DropdownDirective,
     RecipeStartComponent,
     RecipedEditComponent,
-    FilterPipe
+    FilterPipe,
   ],
   imports: [
     BrowserModule,
     FormsModule,
     ApproutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule,
   ],
   providers: [RecipeService, ShoppingListService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
