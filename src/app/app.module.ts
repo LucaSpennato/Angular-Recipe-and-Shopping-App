@@ -18,6 +18,7 @@ import { ShoppingListService } from './shopping-list/shopping-list.service';
 import { RecipeStartComponent } from './recipes/recipe-start/recipe-start.component';
 import { RecipedEditComponent } from './recipes/reciped-edit/reciped-edit.component';
 import { FilterPipe } from './pipes/filter.pipe';
+import { AuthComponent } from './auth/auth.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { FilterPipe } from './pipes/filter.pipe';
     RecipeStartComponent,
     RecipedEditComponent,
     FilterPipe,
+    AuthComponent,
   ],
   imports: [
     BrowserModule,
