@@ -6,7 +6,7 @@ import { Component, EventEmitter, Output, OnInit } from '@angular/core';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
   constructor(private dataStore: DataStorageService) {}
 
   // @Output() featureSelected = new EventEmitter<string>()
@@ -20,6 +20,10 @@ export class HeaderComponent {
   }
 
   onFetchData() {
-    this.dataStore.fetchRecipes();
+    this.dataStore.fetchRecipes().subscribe();
+  }
+
+  ngOnInit(): void {
+    this.dataStore.fetchRecipes().subscribe();
   }
 }
