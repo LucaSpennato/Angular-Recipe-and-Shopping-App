@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { AuthService } from './auth.service';
 import { NgForm } from '@angular/forms';
 import { Component } from '@angular/core';
@@ -12,7 +13,7 @@ export class AuthComponent {
   isLoading = false;
   error: string = null;
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   onSwitchMode() {
     this.isLoginMode = !this.isLoginMode;
@@ -45,6 +46,7 @@ export class AuthComponent {
   private _sign(res) {
     console.log(res);
     this.isLoading = false;
+    this.router.navigate(['/recipies']);
   }
 
   private _catchError(err) {
