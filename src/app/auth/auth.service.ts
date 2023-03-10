@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { User } from './user.model';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -22,8 +23,9 @@ export class AuthService {
   // ? behaviorSubject ci permette di prendere le info di quel che è stato emittato anche prima che noi facessimo il subscribe
   // ? partiamo con null perchè semplicemente non abbiamo uno user all'inizio
   user = new BehaviorSubject<User>(null);
+  private tokenExpirationTimer: any;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   signUp(email: string, password: string) {
     return this.http
@@ -67,6 +69,54 @@ export class AuthService {
       );
   }
 
+  logout() {
+    this.user.next(null);
+    this.router.navigate(['/auth']);
+    localStorage.removeItem('userData');
+    if (this.tokenExpirationTimer) {
+      clearTimeout(this.tokenExpirationTimer);
+    }
+    this.tokenExpirationTimer = null;
+  }
+
+  autoLogout(expirationDuration: number) {
+    this.tokenExpirationTimer = setTimeout(() => {
+      this.logout();
+    }, expirationDuration);
+  }
+
+  autoLogging() {
+    const userData: {
+      email: string;
+      id: string;
+      _token: string;
+      _tokenExpirationDate: string;
+    } = JSON.parse(localStorage.getItem('userData'));
+
+    if (!userData) {
+      return;
+    }
+
+    const { email, id, _token, _tokenExpirationDate } = userData;
+    const loadedUser = new User(
+      email,
+      id,
+      _token,
+      new Date(_tokenExpirationDate)
+    );
+
+    if (loadedUser.token) {
+      this.user.next(loadedUser);
+
+      // per capire quanto resta al token con l'auto login!
+      const exprationDuration =
+        new Date(userData._tokenExpirationDate).getTime() -
+        new Date().getTime();
+
+      this.autoLogout(exprationDuration);
+    }
+  }
+
   private _handleAuth(
     email: string,
     userId: string,
@@ -81,6 +131,11 @@ export class AuthService {
 
     const user = new User(email, userId, token, expirationDate);
     this.user.next(user);
+
+    // passiamo in millisecondi perchè stiam usando il timeout e ce lo aspettiam così
+    this.autoLogout(expiresIn * 1000);
+
+    localStorage.setItem('userData', JSON.stringify(user));
   }
 
   private _handleError(errorRes: HttpErrorResponse) {
