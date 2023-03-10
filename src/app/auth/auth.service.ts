@@ -1,7 +1,7 @@
 import { User } from './user.model';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, throwError, Subject, tap } from 'rxjs';
+import { catchError, throwError, tap, BehaviorSubject } from 'rxjs';
 
 export interface AuthResponseData {
   idToken: string;
@@ -19,7 +19,9 @@ export interface AuthResponseData {
 export class AuthService {
   // salviamo lo user e lo emittiamo ogni volta che logghiamo o slogghiamo il token temporale scade
   // ! controlla i pipe sotto, va fatto lì, nel tap, perchè è lì che ci arrivano le info
-  user = new Subject<User>();
+  // ? behaviorSubject ci permette di prendere le info di quel che è stato emittato anche prima che noi facessimo il subscribe
+  // ? partiamo con null perchè semplicemente non abbiamo uno user all'inizio
+  user = new BehaviorSubject<User>(null);
 
   constructor(private http: HttpClient) {}
 
