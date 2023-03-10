@@ -1,8 +1,9 @@
+import { User } from './user.model';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, throwError } from 'rxjs';
+import { catchError, throwError, Subject, tap } from 'rxjs';
 
-interface AuthResponseData {
+export interface AuthResponseData {
   idToken: string;
   email: string;
   refreshToken: string;
@@ -16,6 +17,10 @@ interface AuthResponseData {
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
+  // salviamo lo user e lo emittiamo ogni volta che logghiamo o slogghiamo il token temporale scade
+  // ! controlla i pipe sotto, va fatto lì, nel tap, perchè è lì che ci arrivano le info
+  user = new Subject<User>();
+
   constructor(private http: HttpClient) {}
 
   signUp(email: string, password: string) {
@@ -31,6 +36,10 @@ export class AuthService {
       .pipe(
         catchError((errorRes) => {
           return this._handleError(errorRes);
+        }),
+        tap((resData) => {
+          const { email, localId, idToken, expiresIn } = resData;
+          this._handleAuth(email, localId, idToken, +expiresIn);
         })
       );
   }
@@ -48,8 +57,28 @@ export class AuthService {
       .pipe(
         catchError((errorRes) => {
           return this._handleError(errorRes);
+        }),
+        tap((resData) => {
+          const { email, localId, idToken, expiresIn } = resData;
+          this._handleAuth(email, localId, idToken, +expiresIn);
         })
       );
+  }
+
+  private _handleAuth(
+    email: string,
+    userId: string,
+    token: string,
+    expiresIn: number
+  ) {
+    // creiamo una nuova data, a partire dal momento in cui c'è in signUp(nsomma un now),
+    // prendiamo il timestamp in millisecondi con il getTime
+    // aggiungiamo l'expires in (parsato) per mille per convertire quest'ultimo in millisecondi
+    // avendolo wrappato in un new Date, lo converte in un timestamp pulito e non più millisecondi
+    const expirationDate = new Date(new Date().getTime() + +expiresIn * 1000);
+
+    const user = new User(email, userId, token, expirationDate);
+    this.user.next(user);
   }
 
   private _handleError(errorRes: HttpErrorResponse) {
@@ -62,6 +91,20 @@ export class AuthService {
           break;
         case 'EMAIL_NOT_FOUND':
           errMessage = 'This email do not exists';
+          break;
+        case 'OPERATION_NOT_ALLOWED':
+          errMessage = 'Password sign-in is disabled for this project';
+          break;
+        case 'TOO_MANY_ATTEMPTS_TRY_LATER':
+          errMessage =
+            'We have blocked all requests from this device due to unusual activity. Try again later';
+          break;
+        case 'INVALID_PASSWORD':
+          errMessage =
+            'The password is invalid or the user does not have a password';
+          break;
+        case 'USER_DISABLED':
+          errMessage = 'The user account has been disabled by an administrator';
           break;
       }
     }
