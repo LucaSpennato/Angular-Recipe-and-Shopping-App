@@ -6,6 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { StoreModule } from '@ngrx/store';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -20,6 +21,8 @@ import { RecipeStartComponent } from './recipes/recipe-start/recipe-start.compon
 import { RecipedEditComponent } from './recipes/reciped-edit/reciped-edit.component';
 import { FilterPipe } from './pipes/filter.pipe';
 import { AuthComponent } from './auth/auth.component';
+import { AlertComponent } from './shared/alert/alert.component';
+import { shoppingListReducer } from './shopping-list/store/shopping-list.reducers';
 
 @NgModule({
   declarations: [
@@ -36,6 +39,7 @@ import { AuthComponent } from './auth/auth.component';
     RecipedEditComponent,
     FilterPipe,
     AuthComponent,
+    AlertComponent,
   ],
   imports: [
     BrowserModule,
@@ -43,6 +47,7 @@ import { AuthComponent } from './auth/auth.component';
     ApproutingModule,
     ReactiveFormsModule,
     HttpClientModule,
+    StoreModule.forRoot({ shoppingList: shoppingListReducer }),
   ],
   providers: [
     RecipeService,
