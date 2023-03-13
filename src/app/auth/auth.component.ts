@@ -54,4 +54,8 @@ export class AuthComponent {
     this.error = err;
     this.isLoading = false;
   }
+
+  onHandleError() {
+    this.error = null;
+  }
 }

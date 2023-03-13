@@ -1,8 +1,13 @@
 <div class="row">
   <div class="col-12 col-lg-6 mx-lg-auto mt-3">
-    <div *ngIf="error" class="alert alert-danger" role="alert">
+    <!-- <div *ngIf="error" class="alert alert-danger" role="alert">
       {{ error }}
-    </div>
+    </div> -->
+    <app-alert
+      *ngIf="error"
+      [alert-msg]="error"
+      (close-emit)="onHandleError()"
+    ></app-alert>
     <div *ngIf="isLoading">
       <div class="spinner-border text-primary" role="status">
         <span class="visually-hidden">Loading...</span>
